@@ -38,6 +38,55 @@ function createStore (reducer) {
 	 }
 }
 /**
+ * Best Practice:
+ * Build contstants instead of using strings.
+ */
+const ADD_TODO = 'ADD_TODO'
+const REMOVE_TODO = 'REMOVE_TODO'
+const TOGGLE_TODO = 'TOGGLE_TODO'
+const ADD_GOAL = 'ADD_GOAL'
+const REMOVE_GOAL = 'REMOVE_GOAL'
+
+
+/**
+ * Action Creators:
+ */
+function addTodoAction (todo) {
+	return {
+		type: ADD_TODO,
+		todo,
+	}
+}
+
+function removeTodoAction (id) {
+	return {
+		type: REMOVE_TODO,
+		id,
+	}
+}
+
+function toggleTodoAction (id) {
+	return {
+		type: TOGGLE_TODO,
+		id,
+	}
+}
+
+function addGoalAction (goal) {
+	return {
+		type: ADD_GOAL,
+		goal,
+	}
+}
+
+function removeGoalAction (id) {
+	return {
+		type: REMOVE_GOAL,
+		id,
+	}
+}
+
+/**
  * Reducers: todos(), goals()
  * A function that takes in the current state and an
  * action that occurred, and returns the new state.
