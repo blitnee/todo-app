@@ -1,3 +1,4 @@
+// LIBRARY CODE  //////////////////////////////////////
 /**
  * Create Store:
  * Responsible for creating the actual store.
@@ -37,6 +38,9 @@ function createStore (reducer) {
 	 	dispatch
 	 }
 }
+
+// APP CODE //////////////////////////////////////
+
 /**
  * Best Practice:
  * Build contstants instead of using strings.
