@@ -4,9 +4,20 @@
 	<title>Todos Goals</title>
 </head>
 <body>
+	<div>
+		<h1>Todo List</h1>
+		<input id='todo' type='text' placeholder='Add Todo' />
+		<button id='todoBtn'>Add Todo</button>
+		<ul id='todoList'></ul>
+	</div>
+	<div>
+		<h1>Goals List</h1>
+		<input id='goal' type='text' placeholder='Add Goal' />
+		<button id='goalBtn'>Add Goals</button>
+		<ul id='goalList'></ul>
+	</div>
 
 	<script type="text/javascript">
-
 		function createStore (reducer) {
 
 			 let state
