@@ -66,6 +66,19 @@ function goals (state = [], action) {
 			return state
 	}
 }
+/**
+ * Reducer Manager/ Root Reducer app():
+ * Makes state and object, instead of just an array
+ * Allows reducers to manage and return the state of their object,
+ * instead of the entire application.
+ */
+function app (state = {}, action) {
+	return {
+		todos: todos(state.todos, action),
+		goals: goals(state.goals, action),
+	}
+}
+
 const store = createStore(app)
 
 store.subscribe(() => {
