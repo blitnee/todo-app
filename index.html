@@ -130,6 +130,13 @@
 		const store = createStore(app)
 
 		store.subscribe(() => {
+			const { todos, goals } = store.getState()
+
+			document.getElementById('todoList').innerHTML = ''
+			document.getElementById('goalList').innerHTML = ''
+
+			todos.forEach(addTodoToDOM)
+			goals.forEach(addGoalToDOM)
 		})
 
 		// DOM code
