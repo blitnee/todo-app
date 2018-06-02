@@ -11,37 +11,45 @@
 		<ul id='todoList'></ul>
 	</div>
 	<div>
-		<h1>Goals List</h1>
+		<h1>Goal List</h1>
 		<input id='goal' type='text' placeholder='Add Goal' />
 		<button id='goalBtn'>Add Goals</button>
 		<ul id='goalList'></ul>
 	</div>
 
 	<script type="text/javascript">
+	/**
+	 * LIBRARY CODE
+	 */
 		function createStore (reducer) {
 
-			 let state
-			 let listeners = []
+			let state
+			let listeners = []
 
-			 const getState = () => state
+			const getState = () => state
 
-			 const subscribe = (listener) => {
+			const subscribe = (listener) => {
 			 	listeners.push(listener)
 			 	return () => {
 			 		listeners = listeners.filter((l) => l !== listerner)
 			 	}
-			 }
+			}
 
 			const dispatch = (action) => {
 		 		state = reducer(state, action)
 		 		listeners.forEach((listener) => listener())
 			}
 
-			 return {
+			return {
 			 	getState,
 			 	subscribe,
 			 	dispatch
-			 }
+			}
+		}
+
+	/**
+	 * APP CODE
+	 */
 		}
 
 		const ADD_TODO = 'ADD_TODO'
