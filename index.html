@@ -7,6 +7,7 @@
 	<script src="https://unpkg.com/react-dom@16.3.0-alpha.1/umd/react-dom.development.js"></script>
 	<script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
 	<script src="https://tylermcginnis.com/goals-todos-api/index.js"></script>
+	<link rel="stylesheet" href="styles.css">
 </head>
 <body>
 	<div id='app'></div>
@@ -95,6 +96,16 @@
 					return state
 			}
 		}
+
+		function loading (state = true, action) {
+			switch(action.type) {
+				case RECEIVE_DATA :
+					return false
+				default :
+					return state
+			}
+		}
+
 		// MIDDLEWARE
 		const checker = (store) => (next) => (action) => {
 			// NEXT MIDDLEWARE IN LINE, OR DISPATCH
@@ -128,6 +139,7 @@
 		const store = Redux.createStore(Redux.combineReducers({
 			todos,
 			goals,
+			loading,
 		}), Redux.applyMiddleware(checker, logger))
 	</script>
 
@@ -234,7 +246,14 @@
 			}
 			render() {
 				const { store } = this.props
-				const { todos, goals } = store.getState()
+				const { todos, goals, loading } = store.getState()
+
+				if (loading === true) {
+					return <div className="loadContainer">
+									<h1>Loading</h1>
+									<div className="loader"></div>
+								 </div>
+				}
 
 				return (
 					<div>
