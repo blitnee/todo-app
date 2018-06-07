@@ -20,6 +20,11 @@
 		<button id='goalBtn'>Add Goals</button>
 		<ul id='goalList'></ul>
 	</div>
+
+	<hr />
+
+	<div id='app'></div>
+
 	<script type="text/javascript">
 
 		function generateId() {
@@ -66,7 +71,7 @@
 				id,
 			}
 		}
-
+		// REDUCER FUNCTION
 		function todos (state = [], action) {
 			switch(action.type) {
 				case ADD_TODO :
@@ -80,7 +85,7 @@
 					return state
 			}
 		}
-
+		// REDUCER FUNCTION
 		function goals (state = [], action) {
 			switch(action.type) {
 				case ADD_GOAL :
@@ -91,7 +96,7 @@
 					return state
 			}
 		}
-
+		// MIDDLEWARE
 		const checker = (store) => (next) => (action) => {
 			// NEXT MIDDLEWARE IN LINE, OR DISPATCH
 			if (
@@ -120,10 +125,12 @@
 			return result
 		}
 
+		// COMBINE REDUCER AND PASS STATE TO STORE
 		const store = Redux.createStore(Redux.combineReducers({
 			todos,
 			goals,
 		}), Redux.applyMiddleware(checker, logger))
+		// GET STATE FROM STORE AND DISPLAY ON UI
 		store.subscribe(() => {
 			const { todos, goals } = store.getState()
 
@@ -134,7 +141,7 @@
 			goals.forEach(addGoalToDOM)
 		})
 
-		// DOM code
+		// DOM CODE
 		function addTodo () {
 			const input = document.getElementById('todo')
 			const name = input.value
@@ -205,5 +212,51 @@
 
 	</script>
 
+	<script type='text/babel'>
+		function List (props) {
+			return (
+				<ul>
+					<li>LIST</li>
+				</ul>
+			)
+		}
+
+		class Todos extends React.Component {
+			render() {
+				return (
+					<div>
+					TODOS
+						<List />
+					</div>
+				)
+			}
+		}
+
+		class Goals extends React.Component {
+			render () {
+				return (
+					<div>
+						GOALS
+						<List />
+					</div>
+				)
+			}
+		}
+		class App extends React.Component {
+			render() {
+				return (
+					<div>
+						<Todos />
+						<Goals />
+					</div>
+				)
+			}
+		}
+
+	ReactDOM.render(
+		<App />,
+		document.getElementById('app')
+	)
+	</script>
 </body>
 </html>
