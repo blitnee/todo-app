@@ -17,6 +17,7 @@
 			return Math.random().toString(36).substring(2) + (new Date()).getTime().toString(36)
 		}
 
+		// ACTIONS
 		const ADD_TODO = 'ADD_TODO'
 		const REMOVE_TODO = 'REMOVE_TODO'
 		const TOGGLE_TODO = 'TOGGLE_TODO'
@@ -164,20 +165,30 @@
 		class Todos extends React.Component {
 			addItem = (e) => {
 				e.preventDefault()
-				const name = this.input.value
-				this.input.value = ''
-
-				this.props.store.dispatch(addTodoAction({
-					name,
-					complete: false,
-					id: generateId()
-				}))
+				return API.saveTodo(this.input.value)
+					.then((todo) => {
+						this.props.store.dispatch(addTodoAction(todo))
+						this.input.value = ''
+					})
+					.catch(() => {
+						alert('An error occured. Try again.')
+					})
 			}
 			removeItem = (todo) => {
 				this.props.store.dispatch(removeTodoAction(todo.id))
+					return API.deleteTodo(todo.id)
+						.catch(() => {
+							this.props.store.dispatch(addTodoAction(todo))
+							alert('An error occurred. Try again.')
+						})
 			}
 			toggleItem = (id) => {
 				this.props.store.dispatch(toggleTodoAction(id))
+					return API.saveTodoToggle(id)
+						.catch(() => {
+							this.props.store.dispatch(toggleTodoAction(id))
+							alert('An error occurred. Try again.')
+						})
 			}
 			render() {
 				return (
@@ -202,16 +213,22 @@
 		class Goals extends React.Component {
 			addItem = (e) => {
 				e.preventDefault()
-				const name = this.input.value
-				this.input.value = ''
-
-				this.props.store.dispatch(addGoalAction({
-					name,
-					id: generateId()
-				}))
+				return API.saveGoal(this.input.value)
+					.then((goal) => {
+						this.props.store.dispatch(addGoalAction(goal))
+						this.input.value = ''
+					})
+					.catch(() => {
+						alert('An error occured. Try again.')
+					})
 			}
 			removeItem = (goal) => {
 				this.props.store.dispatch(removeGoalAction(goal.id))
+					return API.deleteTodo(goal.id)
+						.catch(() => {
+							this.props.store.dispatch(addTodoAction(goal))
+							alert('An error occurred. Try again.')
+						})
 			}
 			render () {
 				return (
@@ -231,6 +248,7 @@
 				)
 			}
 		}
+
 		class App extends React.Component {
 			componentDidMount () {
 				const { store } = this.props
