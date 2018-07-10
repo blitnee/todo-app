@@ -7,6 +7,7 @@
 	<script src="https://unpkg.com/react-dom@16.3.0-alpha.1/umd/react-dom.development.js"></script>
 	<script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
 	<script src="https://tylermcginnis.com/goals-todos-api/index.js"></script>
+	<script src="https://unpkg.com/redux-thunk@2.2.0/dist/redux-thunk.min.js"></script>
 	<link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -65,6 +66,31 @@
 				type: RECEIVE_DATA,
 				todos,
 				goals,
+			}
+		}
+
+		function handleAddGoal (name, cb) {
+			return (dispatch) => {
+				return API.saveGoal(name)
+					.then((goal) => {
+						dispatch(addGoalAction(goal))
+						cb()
+					})
+					.catch(() => {
+						alert('An error occured. Try again.')
+				})
+			}
+		}
+
+		function handleDeleteGoal (goal) {
+			return (dispatch) => {
+				dispatch(removeGoalAction(goal.id))
+
+				return API.deleteTodo(goal.id)
+					.catch(() => {
+						dispatch(addGoalAction(goal))
+						alert('An error occurred. Try again.')
+					})
 			}
 		}
 
@@ -141,7 +167,7 @@
 			todos,
 			goals,
 			loading,
-		}), Redux.applyMiddleware(checker, logger))
+		}), Redux.applyMiddleware(ReduxThunk.default, checker, logger))
 	</script>
 
 	<script type='text/babel'>
@@ -213,22 +239,14 @@
 		class Goals extends React.Component {
 			addItem = (e) => {
 				e.preventDefault()
-				return API.saveGoal(this.input.value)
-					.then((goal) => {
-						this.props.store.dispatch(addGoalAction(goal))
-						this.input.value = ''
-					})
-					.catch(() => {
-						alert('An error occured. Try again.')
-					})
+				this.props.store.dispatch(handleAddGoal(
+					this.input.value,
+					() => this.input.value = ''
+				))
 			}
+
 			removeItem = (goal) => {
-				this.props.store.dispatch(removeGoalAction(goal.id))
-					return API.deleteTodo(goal.id)
-						.catch(() => {
-							this.props.store.dispatch(addTodoAction(goal))
-							alert('An error occurred. Try again.')
-						})
+				this.props.store.dispatch(handleDeleteGoal(goal))
 			}
 			render () {
 				return (
