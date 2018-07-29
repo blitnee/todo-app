@@ -13,16 +13,22 @@ class App extends React.Component {
 	}
 	render() {
 		if (this.props.loading === true) {
-			return <div className="loadContainer">
-								<h1>Loading</h1>
+			return <div className='load-container'>
+								<h1 className='load-text'>Loading</h1>
 								<div className="loader"></div>
 						 </div>
 		}
-
 		return (
-			<div>
-				<ConnectedTodos />
-				<ConnectedGoals />
+			<div className='app-wrap'>
+				<div className='header'>
+					<p className='instructions-text'>
+					Click Todos to cross them off your list!
+					</p>
+				</div>
+				<div className='container'>
+					<ConnectedTodos />
+					<ConnectedGoals />
+				</div>
 			</div>
 		)
 	}
