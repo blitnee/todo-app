@@ -2,6 +2,7 @@ import React from 'react'
 import ConnectedTodos from './Todos'
 import ConnectedGoals from './Goals'
 import { connect } from 'react-redux'
+import '../index.css';
 import {
 	handleInitialData
 } from '../actions/shared'
