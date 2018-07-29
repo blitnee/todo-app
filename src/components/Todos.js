@@ -24,14 +24,19 @@ class Todos extends React.Component {
 	}
 	render() {
 		return (
-			<div>
-				<h1>Todo List</h1>
-				<input
-					type='text'
-					placeholder='Add Todo'
-					ref={(input) => this.input = input}
-				/>
-				<button onClick={this.addItem}>Add Todo</button>
+			<div className='block'>
+				<h1 className='list-heading'>Todo List</h1>
+				<div className='add-container'>
+					<input
+						className='add-field'
+						type='text'
+						placeholder='Add Todo'
+						ref={(input) => this.input = input}
+					/>
+					<button
+						className='add-button'
+						onClick={this.addItem}>Add Todo</button>
+				</div>
 				<List
 					toggle={this.toggleItem}
 					items={this.props.todos}
