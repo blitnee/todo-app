@@ -1,6 +1,7 @@
 import React from 'react'
 import ConnectedTodos from './Todos'
 import ConnectedGoals from './Goals'
+import Add from './Add'
 import { connect } from 'react-redux'
 import '../index.css';
 import {
@@ -27,6 +28,7 @@ class App extends React.Component {
 					</p>
 				</div>
 				<div className='container'>
+					<Add />
 					<ConnectedTodos />
 					<ConnectedGoals />
 				</div>
