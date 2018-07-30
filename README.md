@@ -4,7 +4,10 @@ This application allows users to add and remove todo and goal items. Users can a
 * `App` - Holds `Todos` and `Goals` components
 * `Goals` - Displays a list of the user's goals
 * `Todo` - Displays a list of the user's todos, and if they are completed
-* `List` - Displays the individual items in a list
+* `List` - Displays the individual item and text in a list
+* `Add` - Displays the input form to add todos and goals
+
+![Home display for Todo app](https://raw.githubusercontent.com/blitnee/todo-app/master/src/img/todo-home.png)
 
 ## Instructions
 
