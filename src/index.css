@@ -45,7 +45,7 @@ body {
   padding: 1em 0 1em 0;
 }
 
- /**
+/**
  * LIST
  */
 .list-item {
@@ -67,6 +67,13 @@ body {
   border-radius: 5px;
   font-weight: bolder;
   background-color: #FF5722;
+}
+
+/**
+ * ADD
+ */
+#type {
+  background-color: white;
 }
 
 /**
